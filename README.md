@@ -5,9 +5,10 @@
 
 Stuff for parsing Cargo.toml files.
 
-Fully accurate as per the [reference](https://doc.rust-lang.org/cargo/reference/manifest.html).
-In the event of any problems, nothing will be fixed until the reference is.
-It just makes everything easier if the reference is accurate.
+Should be fully accurate as per the [reference](https://doc.rust-lang.org/cargo/reference/manifest.html).
+In the event the reference and the implementation diverge, I will make no attempt to fix anything until
+the reference is properly updated.
+Keeping track of undocumented changes is not something I will do.
 
 ## FAQ
 
