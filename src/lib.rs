@@ -54,6 +54,8 @@ pub struct CargoToml {
     pub benches: Option<Vec<TargetConfig>>,
     #[serde(rename = "test")]
     pub tests: Option<Vec<TargetConfig>>,
+    pub patch: Option<Patches>,
+    pub replace: Option<DependencyT>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
@@ -279,4 +281,10 @@ pub struct TargetConfig {
     pub edition: Option<String>,
     pub required_features: Option<Vec<String>>,
     pub crate_type: Option<Vec<String>>,
+}
+
+#[derive(Deserialize, Debug, Serialize, Default)]
+#[serde(transparent, rename_all = "kebab-case")]
+pub struct Patches {
+    sources: BTreeMap<String, DependencyT>,
 }
