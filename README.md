@@ -12,11 +12,10 @@ Keeping track of undocumented changes is not something I will do.
 
 ## Details
 
-Minimal to no validation is performed on (De)serialization.
+No validation or other work is performed on (De)Serialization.
 It is up to you to ensure inputs are valid if you intend to Serialize.
 
-One thing this library will do for you, however, is setup default values.
-That is, if you parse a `Cargo.toml` and it doesn't define every possible option itself, the default values that cargo assumes will be there.
+It is also up to you if you wish to have the default values of missing fields.
 
 ## FAQ
 
