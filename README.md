@@ -3,14 +3,14 @@
 [![Crates.io](https://img.shields.io/crates/v/cargo-toml2.svg)](https://crates.io/crates/cargo-toml2)
 ![maintenance-as-is](https://img.shields.io/badge/maintenance-as--is-yellow.svg)
 
-Stuff for parsing Cargo.toml files.
+Stuff for parsing `Cargo.toml` and `.cargo/config` files.
 
-Should be fully accurate as per the [reference](https://doc.rust-lang.org/cargo/reference/manifest.html).
+Should be fully accurate as per the [Manifest Reference](https://doc.rust-lang.org/cargo/reference/manifest.html) and [`.cargo/config` Reference](https://doc.rust-lang.org/cargo/reference/config.html).
 
 In the event the reference and the implementation diverge, I will make no attempt to fix anything until
-the reference is properly updated.
+the references are properly updated.
 
-Keeping track of undocumented changes is never a fun thing and I don't plan to do it. And it benefits no one to have a bunch of undocumented behaviour for `Cargo.toml`.
+Keeping track of undocumented changes is never a fun thing and I don't plan to do it. And it benefits no one to have a bunch of undocumented behaviour for `Cargo.toml`/`.cargo/config`.
 
 ## Details
 
@@ -24,7 +24,7 @@ Note that this is a pretty direct wrapper around the Cargo Manifest, and you sho
 
 ## Limitations
 
-Due to current limitations in `toml-rs`, Dependencies may fail to write out with a `ValueAfterTable` error.
+Due to current limitations in `toml-rs`, the Dependencies table may fail to write out with a `ValueAfterTable` error.
 
 As a workaround, if possible remove or convert the `Dependency::Simple` variants to `Dependency::Full` ones.
 The relevant issue is [#256](https://github.com/alexcrichton/toml-rs/issues/265)
