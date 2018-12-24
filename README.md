@@ -39,6 +39,11 @@ The relevant issue is [#256](https://github.com/alexcrichton/toml-rs/issues/265)
 * Q: Why call it `cargo-toml2`?
 * A: `Cargo-toml` was taken, and I'm unimaginative. It's a simple obvious name that clearly states its purpose, what else could I make it? Sorry. Bit late to change after it's published.
 
+----
+
+* Q: Do you regret publically using everything in root?
+* A: Yes, but now I can't change it without bumping to `2.0.0`. On the first day of release. Big Oof.
+
 ## License
 
 Licensed under either of
