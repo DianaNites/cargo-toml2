@@ -10,6 +10,11 @@ In the event the reference and the implementation diverge, I will make no attemp
 the reference is properly updated.
 Keeping track of undocumented changes is not something I will do.
 
+## Details
+
+Minimal to no validation is performed on (De)serialization.
+It is up to you to ensure inputs are valid if you intend to Serialize.
+
 ## FAQ
 
 * Q: What about `cargo-toml`?
