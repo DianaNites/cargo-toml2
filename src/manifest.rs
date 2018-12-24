@@ -125,7 +125,7 @@ pub struct DependencyFull {
 #[derive(Deserialize, Debug, Serialize, Default)]
 #[serde(transparent)]
 pub struct Target {
-    targets: BTreeMap<String, TargetDep>,
+    pub targets: BTreeMap<String, TargetDep>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
@@ -137,10 +137,10 @@ pub struct TargetDep {
 
 #[derive(Deserialize, Debug, Serialize, Default)]
 pub struct Profile {
-    dev: Option<ProfileVal>,
-    release: Option<ProfileVal>,
-    test: Option<ProfileVal>,
-    bench: Option<ProfileVal>,
+    pub dev: Option<ProfileVal>,
+    pub release: Option<ProfileVal>,
+    pub test: Option<ProfileVal>,
+    pub bench: Option<ProfileVal>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
@@ -167,9 +167,9 @@ pub struct Features {
 #[derive(Deserialize, Debug, Serialize, Default)]
 #[serde(rename_all = "kebab-case")]
 pub struct Workspace {
-    members: Option<Vec<String>>,
-    default_members: Option<Vec<String>>,
-    exclude: Option<Vec<String>>,
+    pub members: Option<Vec<String>>,
+    pub default_members: Option<Vec<String>>,
+    pub exclude: Option<Vec<String>>,
 }
 
 /// All the sections here use the same stuff.
@@ -193,5 +193,5 @@ pub struct TargetConfig {
 #[derive(Deserialize, Debug, Serialize, Default)]
 #[serde(transparent, rename_all = "kebab-case")]
 pub struct Patches {
-    sources: BTreeMap<String, DependencyT>,
+    pub sources: BTreeMap<String, DependencyT>,
 }

@@ -29,16 +29,16 @@ pub struct CargoNew {
 #[serde(transparent)]
 #[allow(clippy::stutter)]
 pub struct ConfigTarget {
-    targets: BTreeMap<String, ConfigTargetVal>,
+    pub targets: BTreeMap<String, ConfigTargetVal>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
 #[allow(clippy::stutter)]
 pub struct ConfigTargetVal {
-    linker: Option<String>,
-    ar: Option<String>,
-    runner: Option<String>,
-    rustflags: Option<Vec<String>>,
+    pub linker: Option<String>,
+    pub ar: Option<String>,
+    pub runner: Option<String>,
+    pub rustflags: Option<Vec<String>>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
