@@ -17,10 +17,18 @@ It is up to you to ensure inputs are valid if you intend to Serialize.
 
 It is also up to you if you wish to have the default values of missing fields.
 
+## Limitations
+
+Due to current limitations in `toml-rs`, Dependencies may fail to write out with a `ValueAfterTable` error.
+As a workaround, if possible remove or convert the `Dependency::Simple` variants to `Dependency::Full` ones.
+The relevant issue is [#256](https://github.com/alexcrichton/toml-rs/issues/265)
+
 ## FAQ
 
 * Q: What about `cargo-toml`?
-* A: 🤷.
+* A: 🤷. It didn't work for my needs, so I wrote my own.
+
+----
 
 * Q: Why call it `cargo-toml2`?
 * A: `Cargo-toml` was taken, and I'm unimaginative. It's a simple obvious name that clearly states its purpose, what else could I make it? Sorry. Bit late to change after it's published.

@@ -99,6 +99,8 @@ pub struct BuildBadge {
     pub project_name: Option<String>,
 }
 
+/// Due to issues with `toml-rs`, this will fail to serialize if both Simple and Full variants exist.
+/// Specifically, issue #256 blocks this working properly.
 #[derive(Deserialize, Debug, Serialize)]
 #[serde(untagged)]
 pub enum Dependency {
