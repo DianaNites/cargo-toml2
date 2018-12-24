@@ -7,6 +7,14 @@ fn default_edition() -> String {
     "2015".into()
 }
 
+fn default_branch() -> Option<String> {
+    Some("master".into())
+}
+
+fn default_service() -> Option<String> {
+    Some("github".into())
+}
+
 #[derive(Deserialize, Debug, Serialize)]
 #[serde(untagged)]
 pub enum StringOrBool {
@@ -24,6 +32,7 @@ impl Default for StringOrBool {
 #[derive(Deserialize, Debug, Serialize, Default)]
 pub struct CargoToml {
     pub package: Package,
+    pub badges: Badges,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
@@ -57,4 +66,40 @@ pub struct Package {
     pub license: Option<String>,
     #[serde(rename = "license-file")]
     pub license_file: Option<String>,
+}
+
+#[derive(Deserialize, Debug, Serialize, Default)]
+#[serde(rename_all = "kebab-case")]
+pub struct Badges {
+    pub appveyor: Option<BuildBadge>,
+    pub circle_ci: Option<BuildBadge>,
+    pub gitlab: Option<BuildBadge>,
+    pub travis_ci: Option<BuildBadge>,
+    pub codecov: Option<BuildBadge>,
+    pub coveralls: Option<BuildBadge>,
+    pub is_it_maintained_issue_resolution: Option<BuildBadge>,
+    pub is_it_maintained_open_issues: Option<BuildBadge>,
+    pub maintenance: Option<Maintenance>,
+}
+
+#[derive(Deserialize, Debug, Serialize, Default)]
+pub struct Maintenance {
+    // FIXME: Can only be values listed at https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata
+    pub status: String,
+}
+
+/// These are more or less common to all currently supported badges.
+#[derive(Deserialize, Debug, Serialize, Default)]
+pub struct BuildBadge {
+    // This is the only one valid for the is-it-maintained variants
+    pub repository: String,
+    #[serde(default = "default_branch")]
+    pub branch: Option<String>,
+    // FIXME: Valid values are only Github, bitbucket, and gitlab
+    #[serde(default = "default_service")]
+    pub service: Option<String>,
+    // Only appveyor
+    // FIXME: Assumes this is string but may not be?
+    pub id: Option<String>,
+    pub project_name: Option<String>,
 }
