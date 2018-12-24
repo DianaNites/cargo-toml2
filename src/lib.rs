@@ -4,29 +4,11 @@ use serde_derive::{Deserialize, Serialize};
 use std::{collections::BTreeMap, path::PathBuf};
 use toml::Value;
 
-fn default_edition() -> String {
-    "2015".into()
-}
-
-fn default_branch() -> Option<String> {
-    Some("master".into())
-}
-
-fn default_service() -> Option<String> {
-    Some("github".into())
-}
-
 #[derive(Deserialize, Debug, Serialize)]
 #[serde(untagged)]
 pub enum StringOrBool {
     String(String),
     Bool(bool),
-}
-
-impl Default for StringOrBool {
-    fn default() -> Self {
-        StringOrBool::String("build.rs".into())
-    }
 }
 
 type DependencyT = BTreeMap<String, Dependency>;
@@ -59,34 +41,26 @@ pub struct CargoToml {
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
+#[serde(rename_all = "kebab-case")]
 pub struct Package {
     pub name: String,
     pub version: String,
     pub authors: Vec<String>,
-    #[serde(default = "default_edition")]
     pub edition: String,
     pub build: Option<StringOrBool>,
     pub links: Option<String>,
-    // FIXME: Real default is docs.rs link with the current version
     pub documentation: Option<String>,
-    // FIXME: Real default is seeded with VCS ignore, eg .gitignore
     pub exclude: Option<Vec<String>>,
-    // FIXME: Overrides exclude, mutually exclusive.
     pub include: Option<Vec<String>>,
     pub publish: Option<bool>,
-    // FIXME: Real default is inferred by looking up the directory tree.
     pub workspace: Option<PathBuf>,
     pub description: Option<String>,
     pub homepage: Option<String>,
     pub repository: Option<String>,
     pub readme: Option<String>,
-    // FIXME: Max length of 5
     pub keywords: Option<Vec<String>>,
-    // FIXME: Max length of 5, and must match crates.io/category_slugs
     pub categories: Option<Vec<String>>,
-    // FIXME: SPDX 2.1
     pub license: Option<String>,
-    #[serde(rename = "license-file")]
     pub license_file: Option<String>,
     pub autobins: Option<bool>,
     pub autoexamples: Option<bool>,
@@ -110,7 +84,6 @@ pub struct Badges {
 
 #[derive(Deserialize, Debug, Serialize, Default)]
 pub struct Maintenance {
-    // FIXME: Can only be values listed at https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata
     pub status: String,
 }
 
@@ -119,13 +92,9 @@ pub struct Maintenance {
 pub struct BuildBadge {
     // This is the only one valid for the is-it-maintained variants
     pub repository: String,
-    #[serde(default = "default_branch")]
     pub branch: Option<String>,
-    // FIXME: Valid values are only Github, bitbucket, and gitlab
-    #[serde(default = "default_service")]
     pub service: Option<String>,
     // Only appveyor
-    // FIXME: Assumes this is string but may not be?
     pub id: Option<String>,
     pub project_name: Option<String>,
 }
@@ -163,74 +132,11 @@ pub struct TargetDep {
     pub build_dependencies: Option<DependencyT>,
 }
 
-fn default_dev() -> Option<ProfileVal> {
-    Some(ProfileVal {
-        opt_level: Some(0),
-        debug: Some(true),
-        rpath: Some(false),
-        lto: Some(false),
-        debug_assertions: Some(true),
-        codegen_units: Some(16),
-        panic: Some("unwind".into()),
-        incremental: Some(true),
-        overflow_checks: Some(true),
-    })
-}
-
-fn default_release() -> Option<ProfileVal> {
-    Some(ProfileVal {
-        opt_level: Some(3),
-        debug: Some(false),
-        rpath: Some(false),
-        lto: Some(false),
-        debug_assertions: Some(false),
-        codegen_units: Some(16),
-        panic: Some("unwind".into()),
-        incremental: Some(false),
-        overflow_checks: Some(false),
-    })
-}
-
-fn default_test() -> Option<ProfileVal> {
-    Some(ProfileVal {
-        opt_level: Some(0),
-        // Technically it's 2, as per https://doc.rust-lang.org/cargo/reference/manifest.html#the-profile-sections
-        // But, Debug is already equivalent to debuglevel=2, so it doesn't matter unless user code does it.. oh.
-        // FIXME: Above.
-        debug: Some(true),
-        rpath: Some(false),
-        lto: Some(false),
-        debug_assertions: Some(true),
-        codegen_units: Some(16),
-        panic: Some("unwind".into()),
-        incremental: Some(true),
-        overflow_checks: Some(true),
-    })
-}
-
-fn default_bench() -> Option<ProfileVal> {
-    Some(ProfileVal {
-        opt_level: Some(3),
-        debug: Some(false),
-        rpath: Some(false),
-        lto: Some(false),
-        debug_assertions: Some(false),
-        codegen_units: Some(16),
-        panic: Some("unwind".into()),
-        incremental: Some(false),
-        overflow_checks: Some(false),
-    })
-}
-
 #[derive(Deserialize, Debug, Serialize, Default)]
 pub struct Profile {
-    #[serde(default = "default_dev")]
     dev: Option<ProfileVal>,
-    #[serde(default = "default_release")]
     release: Option<ProfileVal>,
-    #[serde(default = "default_test")]
     test: Option<ProfileVal>,
-    #[serde(default = "default_bench")]
     bench: Option<ProfileVal>,
 }
 
@@ -258,7 +164,6 @@ pub struct Features {
 #[derive(Deserialize, Debug, Serialize, Default)]
 #[serde(rename_all = "kebab-case")]
 pub struct Workspace {
-    // FIXME: Optional and inferred
     members: Option<Vec<String>>,
     default_members: Option<Vec<String>>,
     exclude: Option<Vec<String>>,
