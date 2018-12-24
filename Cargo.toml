@@ -8,9 +8,15 @@ exclude = [
 ]
 #
 description = "`Cargo.toml` parsing stuff"
-keywords = ["cargo", "toml", "serde"]
-categories = ["rust-patterns", "parser-implementations"]
+keywords = ["cargo", "toml", "serde", "manifest"]
+categories = [
+    "rust-patterns",
+    "parser-implementations",
+    "development-tools::build-utils",
+]
 documentation = "https://docs.rs/cargo_toml2"
+homepage = "https://github.com/DianaNites/cargo-toml2"
+repository = "https://github.com/DianaNites/cargo-toml2"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 
