@@ -121,11 +121,16 @@ pub enum Dependency {
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
+#[serde(rename_all = "kebab-case")]
 pub struct DependencyFull {
     pub git: Option<String>,
     pub branch: Option<String>,
     pub path: Option<PathBuf>,
     pub version: Option<String>,
+    pub features: Option<Vec<String>>,
+    pub default_features: Option<bool>,
+    pub optional: Option<bool>,
+    pub package: Option<String>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
