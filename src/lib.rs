@@ -45,6 +45,15 @@ pub struct CargoToml {
     pub profile: Option<Profile>,
     pub features: Option<Features>,
     pub workspace: Option<Workspace>,
+    #[serde(rename = "example")]
+    pub examples: Option<Vec<TargetConfig>>,
+    #[serde(rename = "bin")]
+    pub bins: Option<Vec<TargetConfig>>,
+    pub lib: Option<TargetConfig>,
+    #[serde(rename = "bench")]
+    pub benches: Option<Vec<TargetConfig>>,
+    #[serde(rename = "test")]
+    pub tests: Option<Vec<TargetConfig>>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
@@ -252,4 +261,22 @@ pub struct Workspace {
     members: Option<Vec<String>>,
     default_members: Option<Vec<String>>,
     exclude: Option<Vec<String>>,
+}
+
+/// All the sections here use the same stuff.
+/// https://doc.rust-lang.org/cargo/reference/manifest.html#configuring-a-target
+#[derive(Deserialize, Debug, Serialize, Default)]
+#[serde(rename_all = "kebab-case")]
+pub struct TargetConfig {
+    pub name: Option<String>,
+    pub path: Option<PathBuf>,
+    pub test: Option<bool>,
+    pub doctest: Option<bool>,
+    pub bench: Option<bool>,
+    pub plugin: Option<bool>,
+    pub proc_macro: Option<bool>,
+    pub harness: Option<bool>,
+    pub edition: Option<String>,
+    pub required_features: Option<Vec<String>>,
+    pub crate_type: Option<Vec<String>>,
 }
