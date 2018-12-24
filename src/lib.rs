@@ -78,6 +78,10 @@ pub struct Package {
     pub license: Option<String>,
     #[serde(rename = "license-file")]
     pub license_file: Option<String>,
+    pub autobins: Option<bool>,
+    pub autoexamples: Option<bool>,
+    pub autotests: Option<bool>,
+    pub autobenches: Option<bool>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
