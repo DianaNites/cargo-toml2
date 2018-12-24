@@ -7,7 +7,7 @@ exclude = [
     "src/main.rs" # Just for development testing. Nicer than cargo-test.
 ]
 #
-description = "`Cargo.toml` parsing stuff"
+description = "`Cargo.toml` and `.cargo/config` parsing stuff"
 keywords = ["cargo", "toml", "serde", "manifest"]
 categories = [
     "rust-patterns",
