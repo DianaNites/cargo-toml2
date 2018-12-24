@@ -158,7 +158,7 @@ pub struct Profile {
 // FIXME: Defaults here depend on what the profile actually is, so different
 // There are only four currently supported profiles, so i could manually do them?
 pub struct ProfileVal {
-    pub opt_level: Option<u64>,
+    pub opt_level: Option<i64>,
     pub debug: Option<bool>,
     pub rpath: Option<bool>,
     pub lto: Option<bool>,
