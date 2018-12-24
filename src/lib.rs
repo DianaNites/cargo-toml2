@@ -44,6 +44,7 @@ pub struct CargoToml {
     pub target: Option<Target>,
     pub profile: Option<Profile>,
     pub features: Option<Features>,
+    pub workspace: Option<Workspace>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
@@ -238,4 +239,13 @@ pub struct Features {
     pub default: Option<Vec<String>>,
     #[serde(flatten)]
     pub features: BTreeMap<String, Vec<String>>,
+}
+
+#[derive(Deserialize, Debug, Serialize, Default)]
+#[serde(rename_all = "kebab-case")]
+pub struct Workspace {
+    // FIXME: Optional and inferred
+    members: Option<Vec<String>>,
+    default_members: Option<Vec<String>>,
+    exclude: Option<Vec<String>>,
 }
