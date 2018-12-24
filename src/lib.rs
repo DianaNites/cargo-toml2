@@ -43,6 +43,7 @@ pub struct CargoToml {
     pub build_dependencies: Option<DependencyT>,
     pub target: Option<Target>,
     pub profile: Option<Profile>,
+    pub features: Option<Features>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
@@ -230,4 +231,11 @@ pub struct ProfileVal {
     pub panic: Option<String>,
     pub incremental: Option<bool>,
     pub overflow_checks: Option<bool>,
+}
+
+#[derive(Deserialize, Debug, Serialize, Default)]
+pub struct Features {
+    pub default: Option<Vec<String>>,
+    #[serde(flatten)]
+    pub features: BTreeMap<String, Vec<String>>,
 }
