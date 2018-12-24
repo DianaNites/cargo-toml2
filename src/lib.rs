@@ -65,8 +65,7 @@ pub struct Package {
     pub authors: Vec<String>,
     #[serde(default = "default_edition")]
     pub edition: String,
-    #[serde(default)]
-    pub build: StringOrBool,
+    pub build: Option<StringOrBool>,
     pub links: Option<String>,
     // FIXME: Real default is docs.rs link with the current version
     pub documentation: Option<String>,
