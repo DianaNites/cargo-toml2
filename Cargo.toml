@@ -1,7 +1,19 @@
 [package]
 name = "cargo-toml2"
 version = "0.1.0"
-authors = ["Diana <5275194+DianaNites@users.noreply.github.com>"]
+authors = ["Diana"]
 edition = "2018"
+#
+description = "`Cargo.toml` parsing stuff"
+keywords = ["cargo", "toml", "serde"]
+categories = ["rust-patterns", "parser-implementations"]
+documentation = "https://docs.rs/cargo_toml2"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
 
 [dependencies]
+serde = "1.0.82"
+serde_derive = "1.0.82"
+
+[badges]
+maintenance = { status = "as-is" }
