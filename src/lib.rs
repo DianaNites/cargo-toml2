@@ -31,10 +31,14 @@ impl Default for StringOrBool {
 
 /// The root Cargo.toml
 #[derive(Deserialize, Debug, Serialize, Default)]
+#[serde(rename_all = "kebab-case")]
 pub struct CargoToml {
     pub package: Package,
     pub badges: Option<Badges>,
     pub metadata: Option<BTreeMap<String, Value>>,
+    pub dependencies: Option<BTreeMap<String, Dependency>>,
+    pub dev_dependencies: Option<BTreeMap<String, Dependency>>,
+    pub build_dependencies: Option<BTreeMap<String, Dependency>>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
@@ -104,4 +108,19 @@ pub struct BuildBadge {
     // FIXME: Assumes this is string but may not be?
     pub id: Option<String>,
     pub project_name: Option<String>,
+}
+
+#[derive(Deserialize, Debug, Serialize)]
+#[serde(untagged)]
+pub enum Dependency {
+    Simple(String),
+    Full(DependencyFull),
+}
+
+#[derive(Deserialize, Debug, Serialize, Default)]
+pub struct DependencyFull {
+    pub git: Option<String>,
+    pub branch: Option<String>,
+    pub path: Option<PathBuf>,
+    pub version: Option<String>,
 }
