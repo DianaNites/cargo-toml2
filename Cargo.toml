@@ -3,6 +3,9 @@ name = "cargo-toml2"
 version = "0.1.0"
 authors = ["Diana"]
 edition = "2018"
+exclude = [
+    "src/main.rs" # Just for development testing. Nicer than cargo-test.
+]
 #
 description = "`Cargo.toml` parsing stuff"
 keywords = ["cargo", "toml", "serde"]
@@ -14,6 +17,7 @@ readme = "README.md"
 [dependencies]
 serde = "1.0.82"
 serde_derive = "1.0.82"
+toml = "0.4.10"
 
 [badges]
 maintenance = { status = "as-is" }
