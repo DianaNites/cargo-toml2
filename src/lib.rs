@@ -42,6 +42,7 @@ pub struct CargoToml {
     pub dev_dependencies: Option<DependencyT>,
     pub build_dependencies: Option<DependencyT>,
     pub target: Option<Target>,
+    pub profile: Option<Profile>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
@@ -144,4 +145,26 @@ pub struct TargetDep {
     pub dependencies: Option<DependencyT>,
     pub dev_dependencies: Option<DependencyT>,
     pub build_dependencies: Option<DependencyT>,
+}
+
+#[derive(Deserialize, Debug, Serialize, Default)]
+#[serde(transparent)]
+pub struct Profile {
+    profiles: BTreeMap<String, ProfileVal>,
+}
+
+#[derive(Deserialize, Debug, Serialize, Default)]
+#[serde(rename_all = "kebab-case")]
+// FIXME: Defaults here depend on what the profile actually is, so different
+// There are only four currently supported profiles, so i could manually do them?
+pub struct ProfileVal {
+    pub opt_level: Option<u64>,
+    pub debug: Option<bool>,
+    pub rpath: Option<bool>,
+    pub lto: Option<bool>,
+    pub debug_assertions: Option<bool>,
+    pub codegen_units: Option<u64>,
+    pub panic: Option<String>,
+    pub incremental: Option<bool>,
+    pub overflow_checks: Option<bool>,
 }
