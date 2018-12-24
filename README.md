@@ -13,9 +13,12 @@ Keeping track of undocumented changes is not something I will do.
 ## Details
 
 No validation or other work is performed on (De)Serialization.
-It is up to you to ensure inputs are valid if you intend to Serialize.
+It is up to you to:
 
-It is also up to you if you wish to have the default values of missing fields.
+* Ensure inputs are valid if you intend to Serialize.
+* Set Default values for missing fields, if you want them.
+
+Note that this is a pretty direct wrapper around the Cargo Manifest, and you should see the [Manifest Reference](https://doc.rust-lang.org/cargo/reference/manifest.html) if you want to know what things mean.
 
 ## Limitations
 
