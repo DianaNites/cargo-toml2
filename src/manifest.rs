@@ -18,7 +18,6 @@ type DependencyT = BTreeMap<String, Dependency>;
 pub struct CargoToml {
     pub package: Package,
     pub badges: Option<Badges>,
-    pub metadata: Option<BTreeMap<String, Value>>,
     pub dependencies: Option<DependencyT>,
     pub dev_dependencies: Option<DependencyT>,
     pub build_dependencies: Option<DependencyT>,
@@ -65,6 +64,7 @@ pub struct Package {
     pub autoexamples: Option<bool>,
     pub autotests: Option<bool>,
     pub autobenches: Option<bool>,
+    pub metadata: Option<BTreeMap<String, Value>>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
