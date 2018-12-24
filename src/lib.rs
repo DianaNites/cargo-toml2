@@ -266,7 +266,7 @@ pub struct Workspace {
 }
 
 /// All the sections here use the same stuff.
-/// https://doc.rust-lang.org/cargo/reference/manifest.html#configuring-a-target
+/// <https://doc.rust-lang.org/cargo/reference/manifest.html#configuring-a-target>
 #[derive(Deserialize, Debug, Serialize, Default)]
 #[serde(rename_all = "kebab-case")]
 pub struct TargetConfig {
