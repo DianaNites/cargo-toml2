@@ -32,7 +32,7 @@ impl Default for StringOrBool {
 #[derive(Deserialize, Debug, Serialize, Default)]
 pub struct CargoToml {
     pub package: Package,
-    pub badges: Badges,
+    pub badges: Option<Badges>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
