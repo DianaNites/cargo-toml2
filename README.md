@@ -25,6 +25,7 @@ Note that this is a pretty direct wrapper around the Cargo Manifest, and you sho
 ## Limitations
 
 Due to current limitations in `toml-rs`, Dependencies may fail to write out with a `ValueAfterTable` error.
+
 As a workaround, if possible remove or convert the `Dependency::Simple` variants to `Dependency::Full` ones.
 The relevant issue is [#256](https://github.com/alexcrichton/toml-rs/issues/265)
 
