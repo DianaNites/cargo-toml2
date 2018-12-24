@@ -29,6 +29,8 @@ impl Default for StringOrBool {
     }
 }
 
+type DependencyT = BTreeMap<String, Dependency>;
+
 /// The root Cargo.toml
 #[derive(Deserialize, Debug, Serialize, Default)]
 #[serde(rename_all = "kebab-case")]
@@ -36,9 +38,10 @@ pub struct CargoToml {
     pub package: Package,
     pub badges: Option<Badges>,
     pub metadata: Option<BTreeMap<String, Value>>,
-    pub dependencies: Option<BTreeMap<String, Dependency>>,
-    pub dev_dependencies: Option<BTreeMap<String, Dependency>>,
-    pub build_dependencies: Option<BTreeMap<String, Dependency>>,
+    pub dependencies: Option<DependencyT>,
+    pub dev_dependencies: Option<DependencyT>,
+    pub build_dependencies: Option<DependencyT>,
+    pub target: Option<Target>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
@@ -123,4 +126,17 @@ pub struct DependencyFull {
     pub branch: Option<String>,
     pub path: Option<PathBuf>,
     pub version: Option<String>,
+}
+
+#[derive(Deserialize, Debug, Serialize, Default)]
+#[serde(transparent)]
+pub struct Target {
+    targets: BTreeMap<String, TargetDep>,
+}
+
+#[derive(Deserialize, Debug, Serialize, Default)]
+pub struct TargetDep {
+    pub dependencies: Option<DependencyT>,
+    pub dev_dependencies: Option<DependencyT>,
+    pub build_dependencies: Option<DependencyT>,
 }
