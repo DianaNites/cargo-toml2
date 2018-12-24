@@ -111,6 +111,8 @@ pub enum Dependency {
 pub struct DependencyFull {
     pub git: Option<String>,
     pub branch: Option<String>,
+    pub tag: Option<String>,
+    pub rev: Option<String>,
     pub path: Option<PathBuf>,
     pub version: Option<String>,
     pub features: Option<Vec<String>>,
