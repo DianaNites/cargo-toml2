@@ -147,16 +147,79 @@ pub struct TargetDep {
     pub build_dependencies: Option<DependencyT>,
 }
 
+fn default_dev() -> Option<ProfileVal> {
+    Some(ProfileVal {
+        opt_level: Some(0),
+        debug: Some(true),
+        rpath: Some(false),
+        lto: Some(false),
+        debug_assertions: Some(true),
+        codegen_units: Some(16),
+        panic: Some("unwind".into()),
+        incremental: Some(true),
+        overflow_checks: Some(true),
+    })
+}
+
+fn default_release() -> Option<ProfileVal> {
+    Some(ProfileVal {
+        opt_level: Some(3),
+        debug: Some(false),
+        rpath: Some(false),
+        lto: Some(false),
+        debug_assertions: Some(false),
+        codegen_units: Some(16),
+        panic: Some("unwind".into()),
+        incremental: Some(false),
+        overflow_checks: Some(false),
+    })
+}
+
+fn default_test() -> Option<ProfileVal> {
+    Some(ProfileVal {
+        opt_level: Some(0),
+        // Technically it's 2, as per https://doc.rust-lang.org/cargo/reference/manifest.html#the-profile-sections
+        // But, Debug is already equivalent to debuglevel=2, so it doesn't matter unless user code does it.. oh.
+        // FIXME: Above.
+        debug: Some(true),
+        rpath: Some(false),
+        lto: Some(false),
+        debug_assertions: Some(true),
+        codegen_units: Some(16),
+        panic: Some("unwind".into()),
+        incremental: Some(true),
+        overflow_checks: Some(true),
+    })
+}
+
+fn default_bench() -> Option<ProfileVal> {
+    Some(ProfileVal {
+        opt_level: Some(3),
+        debug: Some(false),
+        rpath: Some(false),
+        lto: Some(false),
+        debug_assertions: Some(false),
+        codegen_units: Some(16),
+        panic: Some("unwind".into()),
+        incremental: Some(false),
+        overflow_checks: Some(false),
+    })
+}
+
 #[derive(Deserialize, Debug, Serialize, Default)]
-#[serde(transparent)]
 pub struct Profile {
-    profiles: BTreeMap<String, ProfileVal>,
+    #[serde(default = "default_dev")]
+    dev: Option<ProfileVal>,
+    #[serde(default = "default_release")]
+    release: Option<ProfileVal>,
+    #[serde(default = "default_test")]
+    test: Option<ProfileVal>,
+    #[serde(default = "default_bench")]
+    bench: Option<ProfileVal>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
 #[serde(rename_all = "kebab-case")]
-// FIXME: Defaults here depend on what the profile actually is, so different
-// There are only four currently supported profiles, so i could manually do them?
 pub struct ProfileVal {
     pub opt_level: Option<i64>,
     pub debug: Option<bool>,
