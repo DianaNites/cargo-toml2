@@ -1,3 +1,5 @@
+#![warn(clippy::all)]
+#![warn(clippy::pedantic)]
 use serde_derive::{Deserialize, Serialize};
 
 fn default_edition() -> String {
