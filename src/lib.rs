@@ -1,6 +1,7 @@
 #![warn(clippy::all)]
 #![warn(clippy::pedantic)]
 use serde_derive::{Deserialize, Serialize};
+use std::path::PathBuf;
 
 fn default_edition() -> String {
     "2015".into()
@@ -35,10 +36,25 @@ pub struct Package {
     #[serde(default)]
     pub build: StringOrBool,
     pub links: Option<String>,
-    // TODO: Real default is docs.rs link with the current version
+    // FIXME: Real default is docs.rs link with the current version
     pub documentation: Option<String>,
-    // TODO: Real default is seeded with VCS ignore, eg .gitignore
+    // FIXME: Real default is seeded with VCS ignore, eg .gitignore
     pub exclude: Option<Vec<String>>,
-    // FIXME: Mutually exclusive with exclude
+    // FIXME: Overrides exclude, mutually exclusive.
     pub include: Option<Vec<String>>,
+    pub publish: Option<bool>,
+    // FIXME: Real default is inferred by looking up the directory tree.
+    pub workspace: Option<PathBuf>,
+    pub description: Option<String>,
+    pub homepage: Option<String>,
+    pub repository: Option<String>,
+    pub readme: Option<String>,
+    // FIXME: Max length of 5
+    pub keywords: Option<Vec<String>>,
+    // FIXME: Max length of 5, and must match crates.io/category_slugs
+    pub categories: Option<Vec<String>>,
+    // FIXME: SPDX 2.1
+    pub license: Option<String>,
+    #[serde(rename = "license-file")]
+    pub license_file: Option<String>,
 }
