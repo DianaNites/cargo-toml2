@@ -1,7 +1,8 @@
 #![warn(clippy::all)]
 #![warn(clippy::pedantic)]
 use serde_derive::{Deserialize, Serialize};
-use std::path::PathBuf;
+use std::{collections::BTreeMap, path::PathBuf};
+use toml::Value;
 
 fn default_edition() -> String {
     "2015".into()
@@ -33,6 +34,7 @@ impl Default for StringOrBool {
 pub struct CargoToml {
     pub package: Package,
     pub badges: Option<Badges>,
+    pub metadata: Option<BTreeMap<String, Value>>,
 }
 
 #[derive(Deserialize, Debug, Serialize, Default)]
