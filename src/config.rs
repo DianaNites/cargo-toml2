@@ -5,7 +5,7 @@ use std::{collections::BTreeMap, path::PathBuf};
 /// .cargo/config
 #[derive(Deserialize, Debug, Serialize, Default)]
 #[serde(rename_all = "kebab-case")]
-#[allow(clippy::stutter)]
+#[allow(clippy::module_name_repetitions)]
 pub struct CargoConfig {
     pub paths: Option<Vec<PathBuf>>,
     pub cargo_new: Option<CargoNew>,
@@ -27,13 +27,12 @@ pub struct CargoNew {
 
 #[derive(Deserialize, Debug, Serialize, Default)]
 #[serde(transparent)]
-#[allow(clippy::stutter)]
+#[allow(clippy::module_name_repetitions)]
 pub struct ConfigTarget {
     pub targets: BTreeMap<String, ConfigTargetVal>,
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
-#[allow(clippy::stutter)]
+#[allow(clippy::module_name_repetitions)]
 pub struct ConfigTargetVal {
     pub linker: Option<String>,
     pub ar: Option<String>,
