@@ -3,7 +3,7 @@ use serde_derive::{Deserialize, Serialize};
 use std::{collections::BTreeMap, path::PathBuf};
 use toml::Value;
 
-#[derive(Deserialize, Debug, Serialize)]
+#[derive(Deserialize, Debug, Serialize, Clone)]
 #[serde(untagged)]
 pub enum StringOrBool {
     String(String),
@@ -13,7 +13,7 @@ pub enum StringOrBool {
 type DependencyT = BTreeMap<String, Dependency>;
 
 /// The root Cargo.toml
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 #[serde(rename_all = "kebab-case")]
 pub struct CargoToml {
     pub package: Package,
@@ -38,7 +38,7 @@ pub struct CargoToml {
     pub replace: Option<DependencyT>,
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 #[serde(rename_all = "kebab-case")]
 pub struct Package {
     pub name: String,
@@ -67,7 +67,7 @@ pub struct Package {
     pub metadata: Option<BTreeMap<String, Value>>,
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 #[serde(rename_all = "kebab-case")]
 pub struct Badges {
     pub appveyor: Option<BuildBadge>,
@@ -81,13 +81,13 @@ pub struct Badges {
     pub maintenance: Option<Maintenance>,
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 pub struct Maintenance {
     pub status: String,
 }
 
 /// These are more or less common to all currently supported badges.
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 pub struct BuildBadge {
     // This is the only one valid for the is-it-maintained variants
     pub repository: String,
@@ -100,14 +100,14 @@ pub struct BuildBadge {
 
 /// Due to issues with `toml-rs`, this will fail to serialize if both Simple and Full variants exist.
 /// Specifically, issue #256 blocks this working properly.
-#[derive(Deserialize, Debug, Serialize)]
+#[derive(Deserialize, Debug, Serialize, Clone)]
 #[serde(untagged)]
 pub enum Dependency {
     Simple(String),
     Full(DependencyFull),
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 #[serde(rename_all = "kebab-case")]
 pub struct DependencyFull {
     pub git: Option<String>,
@@ -122,20 +122,20 @@ pub struct DependencyFull {
     pub package: Option<String>,
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 #[serde(transparent)]
 pub struct Target {
     pub targets: BTreeMap<String, TargetDep>,
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 pub struct TargetDep {
     pub dependencies: Option<DependencyT>,
     pub dev_dependencies: Option<DependencyT>,
     pub build_dependencies: Option<DependencyT>,
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 pub struct Profile {
     pub dev: Option<ProfileVal>,
     pub release: Option<ProfileVal>,
@@ -143,7 +143,7 @@ pub struct Profile {
     pub bench: Option<ProfileVal>,
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 #[serde(rename_all = "kebab-case")]
 pub struct ProfileVal {
     pub opt_level: Option<i64>,
@@ -157,14 +157,14 @@ pub struct ProfileVal {
     pub overflow_checks: Option<bool>,
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 pub struct Features {
     pub default: Option<Vec<String>>,
     #[serde(flatten)]
     pub features: BTreeMap<String, Vec<String>>,
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 #[serde(rename_all = "kebab-case")]
 pub struct Workspace {
     pub members: Option<Vec<String>>,
@@ -174,7 +174,7 @@ pub struct Workspace {
 
 /// All the sections here use the same stuff.
 /// <https://doc.rust-lang.org/cargo/reference/manifest.html#configuring-a-target>
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 #[serde(rename_all = "kebab-case")]
 pub struct TargetConfig {
     pub name: Option<String>,
@@ -190,7 +190,7 @@ pub struct TargetConfig {
     pub crate_type: Option<Vec<String>>,
 }
 
-#[derive(Deserialize, Debug, Serialize, Default)]
+#[derive(Deserialize, Debug, Serialize, Default, Clone)]
 #[serde(transparent, rename_all = "kebab-case")]
 pub struct Patches {
     pub sources: BTreeMap<String, DependencyT>,
